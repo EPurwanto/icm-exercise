@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise", "icm-exercise\icm-exercise.csproj", "{760AE318-6907-4C4E-90CB-934E8EF082F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise-tests", "icm-exercise-tests\icm-exercise-tests.csproj", "{553E3A0A-48B7-49BA-BAC5-F4C39EC46935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise-console", "icm-exercise-console\icm-exercise-console.csproj", "{F65F5D2E-51FF-4487-92A4-C7403B95F56E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{760AE318-6907-4C4E-90CB-934E8EF082F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760AE318-6907-4C4E-90CB-934E8EF082F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760AE318-6907-4C4E-90CB-934E8EF082F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760AE318-6907-4C4E-90CB-934E8EF082F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{553E3A0A-48B7-49BA-BAC5-F4C39EC46935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553E3A0A-48B7-49BA-BAC5-F4C39EC46935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553E3A0A-48B7-49BA-BAC5-F4C39EC46935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553E3A0A-48B7-49BA-BAC5-F4C39EC46935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
