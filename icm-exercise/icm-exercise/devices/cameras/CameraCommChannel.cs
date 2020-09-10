@@ -6,7 +6,7 @@ namespace icm_exercise.devices.cameras
     /// <summary>
     /// This fakes communication with a networked camera
     /// </summary>
-    public class CameraCommChannel
+    public class CameraCommChannel: IComm<CameraState>
     {
         public CameraState State
         {

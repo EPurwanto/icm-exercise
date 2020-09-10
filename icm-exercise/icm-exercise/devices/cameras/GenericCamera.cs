@@ -11,7 +11,7 @@ namespace icm_exercise.devices.cameras
     /// This is a generalised camera controller, allowing us to treat any model of camera in the same way. Subclasses
     /// adapt specific models to behave appropriately
     /// </summary>
-    public abstract class GenericCamera
+    public abstract class GenericCamera : ICamera
     {
         internal CameraState State;
 
@@ -19,6 +19,18 @@ namespace icm_exercise.devices.cameras
         public virtual double MaxZoom => 0;
 
         public virtual CameraMoveType SupportedMotions => 0;
+
+        public string Id { get; private set; }
+
+        public GenericCamera(string id)
+        {
+            Id = id;
+        }
+
+        public virtual CameraState CurrentState()
+        {
+            return State;
+        }
 
         /// <summary>
         /// Pan the camera left or right
@@ -30,7 +42,7 @@ namespace icm_exercise.devices.cameras
         {
             if (!SupportedMotions.HasFlag(CameraMoveType.Pan))
             {
-                throw  new NotSupportedException();
+                throw new NotSupportedException();
             }
             return await DoPan(amount, right);
         }
@@ -50,7 +62,7 @@ namespace icm_exercise.devices.cameras
         {
             if (!SupportedMotions.HasFlag(CameraMoveType.Pitch))
             {
-                throw  new NotSupportedException();
+                throw new NotSupportedException();
             }
             return await DoPitch(amount, up);
         }
@@ -70,7 +82,7 @@ namespace icm_exercise.devices.cameras
         {
             if (!SupportedMotions.HasFlag(CameraMoveType.Tilt))
             {
-                throw  new NotSupportedException();
+                throw new NotSupportedException();
             }
             return await DoTilt(amount, clockwise);
         }
@@ -91,7 +103,7 @@ namespace icm_exercise.devices.cameras
         {
             if (!SupportedMotions.HasFlag(CameraMoveType.Zoom))
             {
-                throw  new NotSupportedException();
+                throw new NotSupportedException();
             }
 
             if (amount < 0 && -amount > State.Zoom)
@@ -112,6 +124,14 @@ namespace icm_exercise.devices.cameras
         /// </summary>
         internal abstract Task<double> DoZoom(double amount);
 
+        /// <summary>
+        /// Point the camera at a specific direction.
+        /// </summary>
+        /// <param name="pan">the target direction's pan coordinate</param>
+        /// <param name="pitch">the target direction's pitch coordinate</param>
+        /// <param name="tilt">the target direction's tilt coordinate</param>
+        /// <param name="zoom">the target zoom level</param>
+        /// <returns>The final state of the camera</returns>
         public async Task<CameraState> LookAt(double? pan, double? pitch, double? tilt, double? zoom)
         {
             var tasks = new List<Task>();
@@ -143,22 +163,5 @@ namespace icm_exercise.devices.cameras
 
             return State;
         }
-    }
-
-    public struct CameraState
-    {
-        public double Pan;
-        public double Pitch;
-        public double Tilt;
-        public double Zoom;
-    }
-
-    [Flags]
-    public enum CameraMoveType
-    {
-        Pan = 1,
-        Pitch = 2,
-        Tilt = 4,
-        Zoom = 8
     }
 }

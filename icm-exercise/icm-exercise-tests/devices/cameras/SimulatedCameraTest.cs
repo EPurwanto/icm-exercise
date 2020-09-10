@@ -1,4 +1,5 @@
-﻿using icm_exercise.devices.cameras;
+﻿using icm_exercise.devices;
+using icm_exercise.devices.cameras;
 using Xunit;
 
 namespace icm_exercise_tests.devices.cameras
@@ -17,7 +18,7 @@ namespace icm_exercise_tests.devices.cameras
                 Pan =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pan = await cam.Pan(move);
             Assert.Equal(expected, pan, 2);
         }
@@ -34,7 +35,7 @@ namespace icm_exercise_tests.devices.cameras
                 Pan =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pan = await cam.Pan(move, false);
             Assert.Equal(expected, pan, 2);
         }
@@ -50,7 +51,7 @@ namespace icm_exercise_tests.devices.cameras
                 Pitch =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pitch = await cam.Pitch(move);
             Assert.Equal(expected, pitch, 2);
         }
@@ -67,7 +68,7 @@ namespace icm_exercise_tests.devices.cameras
                 Pitch =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pitch = await cam.Pitch(move, false);
             Assert.Equal(expected, pitch, 2);
         }
@@ -84,7 +85,7 @@ namespace icm_exercise_tests.devices.cameras
                 Tilt =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pitch = await cam.Tilt(move);
             Assert.Equal(expected, pitch, 2);
         }
@@ -101,7 +102,7 @@ namespace icm_exercise_tests.devices.cameras
                 Tilt =  initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var pitch = await cam.Tilt(move, false);
             Assert.Equal(expected, pitch, 2);
         }
@@ -121,7 +122,7 @@ namespace icm_exercise_tests.devices.cameras
                 Zoom = initial
             });
 
-            var cam = new SimulatedCamera(channel);
+            var cam = new SimulatedCamera("test", channel);
             var zoom = await cam.Zoom(move);
             Assert.Equal(expected, zoom, 2);
         }

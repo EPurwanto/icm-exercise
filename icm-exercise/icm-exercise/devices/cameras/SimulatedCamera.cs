@@ -13,7 +13,7 @@ namespace icm_exercise.devices.cameras
 
         public override CameraMoveType SupportedMotions => CameraMoveType.Pan | CameraMoveType.Pitch | CameraMoveType.Tilt | CameraMoveType.Zoom;
 
-        public SimulatedCamera(CameraCommChannel channel)
+        public SimulatedCamera(string id, CameraCommChannel channel) : base(id)
         {
             _channel = channel;
             State = _channel.State;

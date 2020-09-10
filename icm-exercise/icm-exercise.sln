@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise-tests", "icm-e
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise-console", "icm-exercise-console\icm-exercise-console.csproj", "{F65F5D2E-51FF-4487-92A4-C7403B95F56E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "icm-exercise-console-tests", "icm-exercise-console-tests\icm-exercise-console-tests.csproj", "{5940EAA6-F974-4793-A1AA-A4F6E7321CF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F65F5D2E-51FF-4487-92A4-C7403B95F56E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5940EAA6-F974-4793-A1AA-A4F6E7321CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5940EAA6-F974-4793-A1AA-A4F6E7321CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5940EAA6-F974-4793-A1AA-A4F6E7321CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5940EAA6-F974-4793-A1AA-A4F6E7321CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

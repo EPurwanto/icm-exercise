@@ -1,13 +1,14 @@
 
 icm-exercise/.idea/
-
-
 icm-exercise/packages/
 
 icm-exercise/icm-exercise/bin/
 icm-exercise/icm-exercise/obj/
-icm-exercise/icm-exercise-console/bin/
-icm-exercise/icm-exercise-console/obj/
 icm-exercise/icm-exercise-tests/bin/
 icm-exercise/icm-exercise-tests/obj/
+
+icm-exercise/icm-exercise-console/bin/
+icm-exercise/icm-exercise-console/obj/
+icm-exercise/icm-exercise-console-tests/bin/
+icm-exercise/icm-exercise-console-tests/obj/
 

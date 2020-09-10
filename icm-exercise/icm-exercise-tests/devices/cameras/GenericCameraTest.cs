@@ -11,9 +11,16 @@ namespace icm_exercise_tests.devices.cameras
     public class GenericCameraTest
     {
         [Fact]
+        public void TestId()
+        {
+            var moq = new Mock<GenericCamera>("test");
+            Assert.Equal("test", moq.Object.Id);
+        }
+
+        [Fact]
         public void TestPan_Supported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Pan);
             moq.Setup(cam => cam.DoPan(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -27,7 +34,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestPan_NotSupported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(0);
             moq.Setup(cam => cam.DoPan(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -39,7 +46,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestPitch_Supported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Pitch);
             moq.Setup(cam => cam.DoPitch(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -53,7 +60,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestPitch_NotSupported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(0);
             moq.Setup(cam => cam.DoPitch(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -65,7 +72,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestTilt_Supported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Tilt);
             moq.Setup(cam => cam.DoTilt(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -79,7 +86,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestTilt_NotSupported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(0);
             moq.Setup(cam => cam.DoTilt(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -91,7 +98,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestZoom_Supported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Zoom);
             moq.Setup(cam => cam.DoTilt(3.0, true)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -105,7 +112,7 @@ namespace icm_exercise_tests.devices.cameras
         [Fact]
         public void TestZoom_NotSupported()
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.SupportedMotions).Returns(0);
             moq.Setup(cam => cam.DoZoom(3.0)).Returns(Task<double>.Factory.StartNew(() => 2.0));
 
@@ -123,7 +130,7 @@ namespace icm_exercise_tests.devices.cameras
         [InlineData(4, 2, -3, -2)]
         public void TestZoom_BoundClipping(double max, double initial, double amount, double expected)
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             moq.Setup(cam => cam.MaxZoom).Returns(max);
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Zoom);
             moq.Setup(cam => cam.DoZoom(It.IsAny<double>())).Returns((double i) => Task<double>.Factory.StartNew(() => i));
@@ -199,7 +206,7 @@ namespace icm_exercise_tests.devices.cameras
             double targetPan,   double targetPitch,   double targetTilt,   double targetZoom,
             double expectedPan, double expectedPitch, double expectedTilt, double expectedZoom)
         {
-            var moq = new Mock<GenericCamera>();
+            var moq = new Mock<GenericCamera>("test");
             var movement = new CameraState();
 
             moq.Setup(cam => cam.MaxZoom).Returns(4);

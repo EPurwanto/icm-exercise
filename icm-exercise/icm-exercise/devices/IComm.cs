@@ -1,7 +1,9 @@
-﻿namespace icm_exercise.devices
+﻿using System.Threading.Tasks;
+
+namespace icm_exercise.devices
 {
-    public interface IComm
+    public interface IComm<DeviceState>
     {
-        double thing(double inp);
+        Task SendCommand(DeviceState nextState);
     }
 }
