@@ -1,7 +1,30 @@
-﻿namespace icm_exercise.devices.cameras
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace icm_exercise.devices.cameras
 {
+    /// <summary>
+    /// This fakes communication with a networked camera
+    /// </summary>
     public class CameraCommChannel
     {
-        
+        public CameraState State
+        {
+            get;
+            private set;
+        }
+        private int simulatedDelay;
+
+        public CameraCommChannel(CameraState initialState, int simulatedDelay = 150)
+        {
+            State = initialState;
+            this.simulatedDelay = simulatedDelay;
+        }
+
+        public async Task SendCommand(CameraState nextState)
+        {
+            Thread.Sleep(simulatedDelay);
+            State = nextState;
+        }
     }
 }

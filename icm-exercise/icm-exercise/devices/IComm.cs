@@ -2,6 +2,6 @@
 {
     public interface IComm
     {
-        
+        double thing(double inp);
     }
 }
