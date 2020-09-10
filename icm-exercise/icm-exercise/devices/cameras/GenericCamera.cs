@@ -114,11 +114,32 @@ namespace icm_exercise.devices.cameras
 
         public async Task<CameraState> LookAt(double? pan, double? pitch, double? tilt, double? zoom)
         {
-            List<Task<double>> tasks = new List<Task<double>>();
+            var tasks = new List<Task>();
             if (pan.HasValue)
             {
-
+                var movement = pan.Value - State.Pan;
+                tasks.Add(Pan(movement));
             }
+
+            if (pitch.HasValue)
+            {
+                var movement = pitch.Value - State.Pitch;
+                tasks.Add(Pitch(movement));
+            }
+
+            if (tilt.HasValue)
+            {
+                var movement = tilt.Value - State.Tilt;
+                tasks.Add(Tilt(movement));
+            }
+
+            if (zoom.HasValue)
+            {
+                var movement = zoom.Value - State.Zoom;
+                tasks.Add(Zoom(movement));
+            }
+
+            Task.WaitAll(tasks.ToArray());
 
             return State;
         }

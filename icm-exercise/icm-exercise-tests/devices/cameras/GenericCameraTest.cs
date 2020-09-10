@@ -142,27 +142,81 @@ namespace icm_exercise_tests.devices.cameras
         }
 
         [Theory]
+        // Trivial case
         [InlineData(0, 0, 0, 0,
             0, 0, 0, 0,
             0, 0, 0, 0)]
-        [InlineData(1, 1, 1, 1,
-            0, 0, 0, 0,
-            1, 1, 1, 1)]
+        // Single motions
         [InlineData(0, 0, 0, 0,
             1, 0, 0, 0,
             1, 0, 0, 0)]
+        [InlineData(0, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 1, 0, 0)]
+        [InlineData(0, 0, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0)]
+        [InlineData(0, 0, 0, 0,
+            0, 0, 0, 1,
+            0, 0, 0, 1)]
+        // Single motions from starting point
+        [InlineData(2, 0, 0, 0,
+            3, 0, 0, 0,
+            1, 0, 0, 0)]
+        [InlineData(0, 2, 0, 0,
+            0, 3, 0, 0,
+            0, 1, 0, 0)]
+        [InlineData(0, 0, 2, 0,
+            0, 0, 3, 0,
+            0, 0, 1, 0)]
+        [InlineData(0, 0, 0, 2,
+            0, 0, 0, 3,
+            0, 0, 0, 1)]
+        // Single Reverse motions from starting point
+        [InlineData(3, 0, 0, 0,
+            2, 0, 0, 0,
+            -1, 0, 0, 0)]
+        [InlineData(0, 3, 0, 0,
+            0, 2, 0, 0,
+            0, -1, 0, 0)]
+        [InlineData(0, 0, 3, 0,
+            0, 0, 2, 0,
+            0, 0, -1, 0)]
+        [InlineData(0, 0, 0, 3,
+            0, 0, 0, 2,
+            0, 0, 0, -1)]
+        // Grouped motions
+        [InlineData(0, 0, 0, 0,
+            1, 1, 1, 1,
+            1, 1, 1, 1)]
+        [InlineData(2, 2, 2, 2,
+            3, 3, 3, 3,
+            1, 1, 1, 1)]
+        [InlineData(3, 3, 3, 3,
+            2, 2, 2, 2,
+            -1, -1, -1, -1)]
         public void TestLookAt(double initialPan,  double initialPitch,  double initialTilt,  double initialZoom,
-                               double targetPan,   double targetPitch,   double targetTilt,   double targetZoom,
-                               double expectedPan, double expectedPitch, double expectedTilt, double expectedZoom)
+            double targetPan,   double targetPitch,   double targetTilt,   double targetZoom,
+            double expectedPan, double expectedPitch, double expectedTilt, double expectedZoom)
         {
             var moq = new Mock<GenericCamera>();
+            var movement = new CameraState();
+
             moq.Setup(cam => cam.MaxZoom).Returns(4);
             moq.Setup(cam => cam.SupportedMotions).Returns(CameraMoveType.Pan | CameraMoveType.Pitch | CameraMoveType.Tilt | CameraMoveType.Zoom);
 
-            moq.Setup(cam => cam.DoPan(It.IsAny<double>(), true)).Returns((double i, bool t) => Task<double>.Factory.StartNew(() => i));
-            moq.Setup(cam => cam.DoPitch(It.IsAny<double>(), true)).Returns((double i, bool t) => Task<double>.Factory.StartNew(() => i));
-            moq.Setup(cam => cam.DoTilt(It.IsAny<double>(), true)).Returns((double i, bool t) => Task<double>.Factory.StartNew(() => i));
-            moq.Setup(cam => cam.DoZoom(It.IsAny<double>())).Returns((double i) => Task<double>.Factory.StartNew(() => i));
+            moq.Setup(cam => cam.DoPan(It.IsAny<double>(), true))
+                .Callback((double i, bool t) => movement.Pan = i);
+
+            moq.Setup(cam => cam.DoPitch(It.IsAny<double>(), true))
+                .Callback((double i, bool t) => movement.Pitch = i);
+
+            moq.Setup(cam => cam.DoTilt(It.IsAny<double>(), true))
+                .Callback((double i, bool t) => movement.Tilt = i);
+
+            moq.Setup(cam => cam.DoZoom(It.IsAny<double>()))
+                .Callback((double i) => movement.Zoom = i);
+
 
             var mockCam = moq.Object;
             mockCam.State = new CameraState()
@@ -171,17 +225,15 @@ namespace icm_exercise_tests.devices.cameras
                 Pitch = initialPitch,
                 Tilt = initialTilt,
                 Zoom = initialZoom
-            };
+            };;
 
             var task = mockCam.LookAt(targetPan, targetPitch, targetTilt, targetZoom);
             task.Wait();
 
-            var state = task.Result;
-
-            Assert.Equal(expectedPan, state.Pan);
-            Assert.Equal(expectedPitch, state.Pitch);
-            Assert.Equal(expectedTilt, state.Tilt);
-            Assert.Equal(expectedZoom, state.Zoom);
+            Assert.Equal(expectedPan, movement.Pan);
+            Assert.Equal(expectedPitch, movement.Pitch);
+            Assert.Equal(expectedTilt, movement.Tilt);
+            Assert.Equal(expectedZoom, movement.Zoom);
         }
     }
 }
