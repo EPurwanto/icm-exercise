@@ -5,60 +5,73 @@ using icm_exercise.devices;
 
 namespace icm_exercise_console
 {
-    public class CameraCommandParser: ICommandParser
+    /// <summary>
+    /// Handles command line inputs when a camera is selected.
+    /// </summary>
+    public class CameraCommandParser: DeviceCommandParser
     {
-        public string Parse(string command, ref DeviceState state)
+        public override string Parse(string command, ref DeviceState state)
         {
             var cam = state.SelectedDevice as ICamera;
             if (cam == null)
                 throw new ArgumentException("Selected Device is null or not a camera.");
 
+            var err = base.Parse(command, ref state);
+            double val = 0;
             var strings = command.Split(" ");
 
-            double val = 0;
-            string err = "Command not recognised, type 'help' to see all commands.";
-            switch (strings[0].ToLower())
+            try
             {
-                case "help":
-                    return HelpText();
-                case "deselect":
-                    return Deselect(ref state);
-                case "pan":
-                    if (TryParse(strings[1], out val, out err))
-                    {
-                        return Pan(cam, val);
-                    }
-                    break;
-                case "pitch":
-                    if (TryParse(strings[1], out val, out err))
-                    {
-                        return Pitch(cam, val);
-                    }
-                    break;
-                case "tilt":
-                    if (TryParse(strings[1], out val, out err))
-                    {
-                        return Tilt(cam, val);
-                    }
-                    break;
-                case "zoom":
-                    if (TryParse(strings[1], out val, out err))
-                    {
-                        return Zoom(cam, val);
-                    }
-                    break;
-                case "lookat":
-                    if (TryParse(strings.Skip(1).ToArray(), out var values, out err))
-                    {
-                        return LookAt(cam, values);
-                    }
-                    break;
+                // If base has handled the command, all of these should fall through.
+                // If it hasn't, then we will get the "Not Recognised" message
+                switch (strings[0].ToLower())
+                {
+                    case "pan":
+                        if (TryParse(strings[1], out val, out err))
+                        {
+                            return Pan(cam, val);
+                        }
+
+                        break;
+                    case "pitch":
+                        if (TryParse(strings[1], out val, out err))
+                        {
+                            return Pitch(cam, val);
+                        }
+
+                        break;
+                    case "tilt":
+                        if (TryParse(strings[1], out val, out err))
+                        {
+                            return Tilt(cam, val);
+                        }
+
+                        break;
+                    case "zoom":
+                        if (TryParse(strings[1], out val, out err))
+                        {
+                            return Zoom(cam, val);
+                        }
+
+                        break;
+                    case "lookat":
+                        if (TryParse(strings.Skip(1).ToArray(), out var values, out err))
+                        {
+                            return LookAt(cam, values);
+                        }
+
+                        break;
+                }
+            }
+            catch (NotSupportedException e)
+            {
+                err = "Operation is not supported on this camera.";
             }
 
             return err;
         }
 
-        public string HelpText()
+        public override string HelpText()
         {
             return @"The following commands are available:
 lookat [pan]? [pitch]? [tilt]? [zoom]? - Set the camera to the given pan, pitch, tilt and zoom levels.
@@ -111,15 +124,6 @@ zoom [amount] - Zoom the camera [amount]x magnification. Amount can be negative.
             task.Wait();
 
             return $"Position {cam.CurrentState().ToString()}";
-        }
-
-        public string Deselect(ref DeviceState state)
-        {
-            var device = state.SelectedDevice;
-
-            state.SelectedDevice = null;
-            state.Parser = new DefaultCommandParser();
-            return $"Deselected {device.Id}.";
         }
 
         public bool TryParse(string s, out double value, out string error)

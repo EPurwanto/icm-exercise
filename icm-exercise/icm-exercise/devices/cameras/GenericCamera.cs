@@ -9,7 +9,7 @@ namespace icm_exercise.devices.cameras
 {
     /// <summary>
     /// This is a generalised camera controller, allowing us to treat any model of camera in the same way. Subclasses
-    /// adapt specific models to behave appropriately
+    /// adapt specific cameras to behave according to the ICamera contract.
     /// </summary>
     public abstract class GenericCamera : ICamera
     {
@@ -21,6 +21,7 @@ namespace icm_exercise.devices.cameras
         public virtual CameraMoveType SupportedMotions => 0;
 
         public string Id { get; private set; }
+        public virtual string Category => "CAM ";
 
         public GenericCamera(string id)
         {

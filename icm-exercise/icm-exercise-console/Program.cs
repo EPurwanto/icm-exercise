@@ -7,6 +7,7 @@
     {
         static void Main(string[] args)
         {
+            // Initalise connected devices
             Console.WriteLine("Loading Devices");
             var deviceManager = new DeviceManager();
             foreach (var device in new DeviceLoader().LoadConnectedDevices())

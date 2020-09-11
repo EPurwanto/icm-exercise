@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace icm_exercise.devices.cameras
 {
     /// <summary>
-    /// This fakes communication with a networked camera
+    /// This fakes communication with a networked camera. This is just a stub for the real connection protocol
     /// </summary>
     public class CameraCommChannel: IComm<CameraState>
     {

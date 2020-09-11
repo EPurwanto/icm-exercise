@@ -102,35 +102,6 @@ CAM  TEST", output);
         }
 
         [Fact]
-        public void TestListDevices_Unknown()
-        {
-            var state = DefaultState();
-            var commandParser = state.Parser;
-
-            var moq = new Mock<IDevice>();
-            moq.Setup(d => d.Id).Returns("DVC_ID");
-            state.DeviceManager.RegisterDevice(moq.Object);
-
-            var command = "list";
-            var output = commandParser.Parse(command, ref state);
-
-            Assert.Null(state.SelectedDevice);
-            Assert.Equal(commandParser, commandParser);
-            Assert.Equal(@"Type ID
-UNKN DVC_ID
-", output);
-
-            command = "LIST";
-            output = commandParser.Parse(command, ref state);
-
-            Assert.Null(state.SelectedDevice);
-            Assert.Equal(commandParser, commandParser);
-            Assert.Equal(@"Type ID
-UNKN DVC_ID
-", output);
-        }
-
-        [Fact]
         public void TestSelect_Valid()
         {
             var state = DefaultState();

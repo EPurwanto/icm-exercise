@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace icm_exercise.devices
 {
+    /// <summary>
+    /// Serves as a registry for connected devices.
+    /// </summary>
     public class DeviceManager
     {
         internal Dictionary<string, IDevice> Devices = new Dictionary<string, IDevice>();

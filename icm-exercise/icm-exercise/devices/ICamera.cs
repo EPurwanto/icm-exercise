@@ -4,6 +4,13 @@ using icm_exercise.devices.cameras;
 
 namespace icm_exercise.devices
 {
+    /// <summary>
+    /// Generic controller interface for all cameras. Provides control methods for camera motion. Any device that
+    /// contains a camera should have a controller that implements this interface.
+    /// Other methods that might be included:
+    /// - Feed providing access to the video stream
+    /// - Record to turn on/off the video stream
+    /// </summary>
     public interface ICamera : IDevice
     {
         double MaxZoom { get; }

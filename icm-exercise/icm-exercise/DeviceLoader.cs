@@ -4,6 +4,13 @@ using icm_exercise.devices.cameras;
 
 namespace icm_exercise.devices
 {
+    /// <summary>
+    /// Checks for connected devices and initalises them. This is separated from DeviceManager to allow the connection
+    /// management strategy to be changed easily.
+    ///
+    /// In a real world use case this would listen for devices connected while the application is running and handle
+    /// registering them with the device manager.
+    /// </summary>
     public class DeviceLoader
     {
         public IEnumerable<IDevice> LoadConnectedDevices()

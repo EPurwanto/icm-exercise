@@ -4,6 +4,9 @@ using icm_exercise.devices;
 
 namespace icm_exercise_console
 {
+    /// <summary>
+    /// Handles command line input when no device is selected
+    /// </summary>
     public class DefaultCommandParser: ICommandParser
     {
         public string Parse(string command, ref DeviceState state)
@@ -37,15 +40,7 @@ select [id] - Select the device with the given ID";
 
             foreach (var device in state.DeviceManager.AllDevices())
             {
-                switch (device)
-                {
-                    case ICamera cam:
-                        sb.Append(Environment.NewLine).Append("CAM  ").Append(cam.Id);
-                        break;
-                    default:
-                        sb.Append(Environment.NewLine).Append("UNKN ").Append(device.Id);
-                        break;
-                }
+                sb.Append(Environment.NewLine).Append(device.Category).Append(" ").Append(device.Id);
             }
 
 
