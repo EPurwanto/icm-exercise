@@ -61,6 +61,11 @@ namespace icm_exercise.devices
         public double Pitch;
         public double Tilt;
         public double Zoom;
+
+        public override string ToString()
+        {
+            return $"({Pan}, {Pitch}, {Tilt}, {Zoom})";
+        }
     }
 
     [Flags]
